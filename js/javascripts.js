@@ -3,28 +3,87 @@ const names = []
 function addRace() {
     var nameVar
     var scoreVar
+    const scores = []
+
     if(isPopulated('user1')) {
-        nameVar = document.getElementById('user1').value
         scoreVar = document.getElementById('score1').value
-        addPlayerScore(nameVar, scoreVar);
+        scores.push(scoreVar)
+        players = 1
     }
     if(isPopulated('user2')) {
-        nameVar = document.getElementById('user2').value
         scoreVar = document.getElementById('score2').value
-        addPlayerScore(nameVar, scoreVar);
+        scores.push(scoreVar)
+        players = 2
     }
     if(isPopulated('user3')) {
-        nameVar = document.getElementById('user3').value
         scoreVar = document.getElementById('score3').value
-        addPlayerScore(nameVar, scoreVar);
+        scores.push(scoreVar)
+        players = 3
     }
     if(isPopulated('user4')) {
-        nameVar = document.getElementById('user4').value
         scoreVar = document.getElementById('score4').value
-        addPlayerScore(nameVar, scoreVar);
+        scores.push(scoreVar)
+        players = 4
     }
+    first = 0
+    for (var i = 1; i < scores.length; i++) {
+        if (scores[i] > scores[first]) {
+            first = i
+        }
+    }
+
+    callAddScores(players, first)
+    
     clearEntryBoxes(false)
     switchScreen();
+}
+
+function callAddScores(players, first) {
+    one = false
+    two = false
+    three = false
+    four = false
+    switch(first) {
+        case 0:
+            one = true
+            break;
+        case 1:
+            two = true
+            break;
+        case 2:
+            three = true
+            break
+        case 3: 
+            four = true
+            break;
+    }
+
+    switch(players) {
+        case 1:
+            addScores(1, one); 
+            break;
+        case 2:
+            addScores(1, one); 
+            addScores(2, two); 
+            break;
+        case 3:
+            addScores(1, one); 
+            addScores(2, two); 
+            addScores(3, three);
+            break;
+        case 4:
+            addScores(1, one); 
+            addScores(2, two); 
+            addScores(3, three);
+            addScores(4, four); 
+            break;
+    }
+}
+
+function addScores(playerNum, first) {
+    nameVar = document.getElementById('user'+playerNum).value
+    scoreVar = document.getElementById('score'+playerNum).value
+    addPlayerScore(nameVar, scoreVar, first);
 }
 
 function switchScreen() {
@@ -42,17 +101,17 @@ function switchScreen() {
     }
 }
 
-function addPlayerScore(nameVar, scoreVar) {
+function addPlayerScore(nameVar, scoreVar, first) {
     var table = document.getElementById('scoreTable');
-
-    //var nameVar = document.getElementById('user'+playerNum).value
-    //var scoreVar = document.getElementById('score'+playerNum).value
 
     if(names.includes(nameVar)) {
 
         for (var i = 0, row; row = table.rows[i]; i++) {
             if(row.cells[0].innerHTML == nameVar) {
                 row.cells[1].innerHTML = parseInt(row.cells[1].innerHTML) + parseInt(scoreVar)
+                if (first) {
+                    row.cells[2].innerHTML = (parseInt(row.cells[2].innerHTML))++
+                }
             }
         }
     }
@@ -68,6 +127,9 @@ function addPlayerScore(nameVar, scoreVar) {
 
         name.innerHTML = nameVar
         score.innerHTML = scoreVar
+        if (first) {
+            firsts.innerHTML = 1
+        }
     }
 }
 
