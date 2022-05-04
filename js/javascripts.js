@@ -33,8 +33,12 @@ function addRace() {
     }
 
     callAddScores(players, first)
-    
-    clearEntryBoxes(false)
+
+    switchClear()
+}
+
+function switchClear() {
+    clearEntryBoxes(false);
     switchScreen();
 }
 
@@ -89,15 +93,13 @@ function addScores(playerNum, first) {
 function switchScreen() {
     if((document.getElementById('scoreboard').className) == 'hidden') {
         document.getElementById('scoreboard').className = 'shown'
-        document.getElementById('newRaceButton').className = 'shown'
-        document.getElementById('saveScoresButton').className = 'shown'
+        document.getElementById('buttons').className = 'shown'
         document.getElementById('addRace').className = 'hidden'
     }
     else {
         document.getElementById('scoreboard').className = 'hidden'
-        document.getElementById('newRaceButton').className = 'hidden'
+        document.getElementById('buttons').className = 'hidden'
         document.getElementById('addRace').className = 'shown'
-        document.getElementById('saveScoresButton').className = 'hidden'
     }
 }
 
@@ -110,7 +112,7 @@ function addPlayerScore(nameVar, scoreVar, first) {
             if(row.cells[0].innerHTML == nameVar) {
                 row.cells[1].innerHTML = parseInt(row.cells[1].innerHTML) + parseInt(scoreVar)
                 if (first) {
-                    row.cells[2].innerHTML = (parseInt(row.cells[2].innerHTML))++
+                    row.cells[2].innerHTML = (parseInt(row.cells[2].innerHTML)) + 1
                 }
             }
         }
@@ -127,6 +129,7 @@ function addPlayerScore(nameVar, scoreVar, first) {
 
         name.innerHTML = nameVar
         score.innerHTML = scoreVar
+        firsts.innerHTML = 0
         if (first) {
             firsts.innerHTML = 1
         }

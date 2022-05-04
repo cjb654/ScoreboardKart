@@ -3,13 +3,26 @@
         <title>Scoreboard</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <script src="js/javascripts.js" type="text/javascript"></script>
+
+        <style>
+            @font-face { font-family: "MarioKart"; src: url('fonts/mario_kart_regular.otf'); } 
+            @font-face { font-family: "MarioKart"; font-weight: bold; src: url('fonts/mario_kart_bold.otf');}
+
+          </style>
     </head>
     <body>
-        <button id="newRaceButton" onclick="switchScreen();">New Race</button>
-        <button id="saveScoresButton" onclick="saveScores();">Save Scores</button>
+        <div id="logoDiv">
+            <img id="logoImage" src="img/mario-kart-8-logo.png" alt="The Mario Kart 8 Deluxe logo">
+        </div>
+        <div id="buttons">
+            <button id="newRaceButton" onclick="switchScreen();">New Race</button>
+            <button id="saveScoresButton" onclick="saveScores();">Save Scores</button>
 
-        <input type="file" id="fileUpload" />
-        <input type="button" id="upload" value="scores" onclick="loadScores()" />
+            <input type="file" id="fileUpload" />
+            <input type="button" id="upload" value="Load" onclick="loadScores()" />
+        </div>
+
+        
 
         <div class="shown" id="scoreboard">
             <table id="scoreTable">
@@ -21,6 +34,7 @@
                 </tr>
             </table>
         </div>
+        
 
         <div class="hidden" id="addRace">
             <label for="user1">Name: </label>
@@ -44,7 +58,8 @@
             <input id="score4" type="number">
             <hr>
 
-            <button class="shown" id="submitNewRace" onclick="addRace();">Add Race</button>
+            <button id="submitNewRace" onclick="addRace();">Add Race</button>
+            <button id="backButtonAdd" onclick="switchClear();">Back</button>
         </div>
     </body>
 </html>

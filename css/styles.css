@@ -1,3 +1,58 @@
+
 .hidden{
     display: none;
+}
+
+th {
+    font-family: "MarioKart";
+
+}
+
+tr {
+    font-family: "MarioKart";
+}
+
+td {
+    border: 2px solid violet;
+}
+
+#scoreboard {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    transform: translate(0, -50%);
+    border: 5px solid green;
+    background-color: #FFFF00;
+    padding: 10px;
+}
+
+#buttons {
+    position: absolute;
+    left: 35%;
+    top: 80%;
+    background-color: pink;
+    padding: 10px;
+}
+
+html {
+    background-color: 049CD8;
+}
+
+#addRace {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+    transform: translate(0, -50%);
+    border: 5px solid green;
+    background-color: #FFFF00;
+    padding: 10px;
+}
+
+#logoImage {
+    width: 30%;
+    height: auto;
+    position: absolute;
+    left: 35%;
+    top: 15%;
+    transform: translate(0, -50%);
 }
