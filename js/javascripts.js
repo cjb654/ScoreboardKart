@@ -197,28 +197,34 @@ function clearEntryBoxes(players) {
     }
 }
 
-function loadScores() {
-    var fileUpload = document.getElementById("fileUpload");
-    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-    //if (regex.test(fileUpload.value.toLowerCase())) {
-    if (true) {
-        if (typeof (FileReader) != "undefined") {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var table = document.createElement("table");
-                var rows = e.target.result.split("\n");
-                for (var i = 0; i < rows.length; i++) {
-                    if (i != 0) {
-                        var cells = rows[i].split(",");
-                        addPlayerScore(cells[0], cells[1])
-                    }
-                }
-            }
-            reader.readAsText(fileUpload.files[0]);
-        } else {
-            alert("This browser does not support HTML5.");
+async function loadScores() {
+    try {
+		let scores_data = await downloadFile();
+	}
+	catch(e) {
+		alert(e.message);
+	}
+}
+
+async function downloadFile() {
+	let response = await fetch("/scores.csv");
+		
+	if(response.status != 200) {
+		throw new Error("Server Error");
+	}
+		
+	// read response stream as text
+	let scores_data = await response.text();
+
+	loadScoresFromData(scores_data.split("\n"));
+}
+
+function loadScoresFromData(scores) {
+    var table = document.createElement("table");
+    for (var i = 0; i < scores.length; i++) {
+        if (i != 0) {
+            var cells = scores[i].split(",");
+            addPlayerScore(cells[0], cells[1])
         }
-    } else {
-        alert("Please upload a valid CSV file.");
     }
 }
