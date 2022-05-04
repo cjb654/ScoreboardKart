@@ -103,7 +103,7 @@ function switchScreen() {
     }
 }
 
-function addPlayerScore(nameVar, scoreVar, first) {
+function addPlayerScore(nameVar, scoreVar, firstVar) {
     var table = document.getElementById('scoreTable');
 
     if(names.includes(nameVar)) {
@@ -111,7 +111,7 @@ function addPlayerScore(nameVar, scoreVar, first) {
         for (var i = 0, row; row = table.rows[i]; i++) {
             if(row.cells[0].innerHTML == nameVar) {
                 row.cells[1].innerHTML = parseInt(row.cells[1].innerHTML) + parseInt(scoreVar)
-                if (first) {
+                if (firstVar) {
                     row.cells[2].innerHTML = (parseInt(row.cells[2].innerHTML)) + 1
                 }
             }
@@ -130,8 +130,8 @@ function addPlayerScore(nameVar, scoreVar, first) {
         name.innerHTML = nameVar
         score.innerHTML = scoreVar
         firsts.innerHTML = 0
-        if (first) {
-            firsts.innerHTML = 1
+        if (firstVar) {
+            firsts.innerHTML = firstVar
         }
     }
 }
@@ -224,7 +224,7 @@ function loadScoresFromData(scores) {
     for (var i = 0; i < scores.length; i++) {
         if (i != 0) {
             var cells = scores[i].split(",");
-            addPlayerScore(cells[0], cells[1])
+            addPlayerScore(cells[0], cells[1], cells[2])
         }
     }
 }
