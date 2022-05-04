@@ -10,16 +10,13 @@
 
           </style>
     </head>
-    <body>
+    <body onload="loadScores()">
         <div id="logoDiv">
             <img id="logoImage" src="img/mario-kart-8-logo.png" alt="The Mario Kart 8 Deluxe logo">
         </div>
         <div id="buttons">
             <button id="newRaceButton" onclick="switchScreen();">New Race</button>
             <button id="saveScoresButton" onclick="saveScores();">Save Scores</button>
-
-            <input type="file" id="fileUpload" />
-            <input type="button" id="upload" value="Load" onclick="loadScores()" />
         </div>
 
         
@@ -60,6 +57,6 @@
 
             <button id="submitNewRace" onclick="addRace();">Add Race</button>
             <button id="backButtonAdd" onclick="switchClear();">Back</button>
-        </div>
+        </div> 
     </body>
 </html>
