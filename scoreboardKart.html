@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Scoreboard</title>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script src="js/javascripts.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <button id="newRaceButton" onclick="switchScreen();">New Race</button>
+        <button id="saveScoresButton" onclick="saveScores();">Save Scores</button>
+
+        <input type="file" id="fileUpload" />
+        <input type="button" id="upload" value="scores" onclick="loadScores()" />
+
+        <div class="shown" id="scoreboard">
+            <table id="scoreTable">
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                    <th>Firsts</th>
+                    <th>Twelfths</th>
+                </tr>
+            </table>
+        </div>
+
+        <div class="hidden" id="addRace">
+            <label for="user1">Name: </label>
+            <input id="user1" type="text" value="Chris">
+            <label for="score1">Score: </label>
+            <input id="score1" type="number" value="90">
+            <hr>
+            <label for="user2">Name: </label>   
+            <input id="user2" type="text">
+            <label for="score2">Score: </label>
+            <input id="score2" type="number">
+            <hr>
+            <label for="user3">Name: </label>
+            <input id="user3" type="text">
+            <label for="score3">Score: </label>
+            <input id="score3" type="number">
+            <hr>
+            <label for="user4">Name: </label>
+            <input id="user4" type="text">
+            <label for="score4">Score: </label>
+            <input id="score4" type="number">
+            <hr>
+
+            <button class="shown" id="submitNewRace" onclick="addRace();">Add Race</button>
+        </div>
+    </body>
+</html>
