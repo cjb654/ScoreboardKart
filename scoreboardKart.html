@@ -3,6 +3,7 @@
         <title>Scoreboard</title>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <script src="js/javascripts.js" type="text/javascript"></script>
+        <script src="js/jquery-3.6.0.js"></script>
 
         <style>
             @font-face { font-family: "MarioKart"; src: url('fonts/mario_kart_regular.otf'); } 
@@ -10,7 +11,7 @@
 
           </style>
     </head>
-    <body onload="loadScores()">
+    <body onload="loadScores();" ontimeupdate="loadScores();">
         <div id="logoDiv">
             <img id="logoImage" src="img/mario-kart-8-logo.png" alt="The Mario Kart 8 Deluxe logo">
         </div>
@@ -19,17 +20,11 @@
             <button id="saveScoresButton" onclick="saveScores();">Save Scores</button>
         </div>
 
-        
+        <div>
+            <?php include 'database.php';?>
+        </div>
 
         <div class="shown" id="scoreboard">
-            <table id="scoreTable">
-                <tr>
-                    <th>Player</th>
-                    <th>Score</th>
-                    <th>Firsts</th>
-                    <th>Twelfths</th>
-                </tr>
-            </table>
         </div>
         
 
@@ -38,6 +33,7 @@
             <input id="user1" type="text" value="Chris">
             <label for="score1">Score: </label>
             <input id="score1" type="number" value="90">
+            <input id="position1" type="number" value="1">
             <hr>
             <label for="user2">Name: </label>   
             <input id="user2" type="text">
