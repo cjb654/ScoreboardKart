@@ -1,4 +1,8 @@
 <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "ScoreboardKart123";
+    $dbname = "scoreboard";
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
@@ -9,7 +13,6 @@
     $sql = "SELECT player, score, races, mean_score, mean_position FROM scores";
     $result = $conn->query($sql);
     
-    $scores = []
     if ($result->num_rows > 0) {
         echo '<table id="scoreTable"><tr>';    
         echo '<th>'.'name'.'</th>';
@@ -23,8 +26,9 @@
             echo "<tr><td>" . $row["player"]. "</td><td>" . $row["score"] . "</td><td>"
             . $row["races"]. "</td><td>" . $row["mean_score"] . "</td><td>" . $row["mean_position"] . "</td></tr>";
         }
-        echo '</table>'
-    } else {
+        echo '</table>';
+    } 
+    else {
         echo "0 results";
     }
     $conn->close();
