@@ -67,13 +67,9 @@ function sendQuery(query) {
 }
 
 function loadScoresFromData(scores) {
-  echo '<table id="scoreTable"><thead><tr>';
+  echo '<table id="scoreTable"><tr>';
 
   //$header
-
-  foreach($scores[0] as $header) {
-      echo '<th>'.$header.'</th>';
-  }
 
   echo '<th>'.'name'.'</th>';
   echo '<th>'.'score'.'</th>';
@@ -81,7 +77,7 @@ function loadScoresFromData(scores) {
   echo '<th>'.'mean_score'.'</th>';
   echo '<th>'.'mean_position'.'</th>';
   
-  echo '</tr></thead><tbody>';
+  echo '</tr>';
 
   foreach($scores as $row) {
       echo '<tr>';
@@ -90,7 +86,7 @@ function loadScoresFromData(scores) {
       }
       echo '</tr>';
   }
-  echo '</tbody></table>';
+  echo '</table>';
 }
 
 ?>
