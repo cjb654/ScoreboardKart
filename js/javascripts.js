@@ -1,38 +1,51 @@
-const names = []
-
 function addRace() {
     var nameVar
     var scoreVar
-    const scores = []
+    var posVar
 
-    if(isPopulated('user1')) {
-        scoreVar = document.getElementById('score1').value
-        scores.push(scoreVar)
+    /*var player1 = []
+    var player2 = []
+    var player3 = []
+    var player4 = []*/
+
+    if(isPopulated('name1')) {
+        var player1 = []
+        player1[0] = document.getElementById('name1').value
+        player1[1] = document.getElementById('score1').value
+        player1[2] = document.getElementById('position1').value
         players = 1
     }
-    if(isPopulated('user2')) {
-        scoreVar = document.getElementById('score2').value
-        scores.push(scoreVar)
+    if(isPopulated('name2')) {
+        var player2 = []
+        player2[0] = document.getElementById('name2').value
+        player2[1] = document.getElementById('score2').value
+        player2[2] = document.getElementById('position2').value
         players = 2
     }
-    if(isPopulated('user3')) {
-        scoreVar = document.getElementById('score3').value
-        scores.push(scoreVar)
+    if(isPopulated('name3')) {
+        var player3 = []
+        player3[0] = document.getElementById('name3').value
+        player3[1] = document.getElementById('score3').value
+        player3[2] = document.getElementById('position3').value
         players = 3
     }
-    if(isPopulated('user4')) {
-        scoreVar = document.getElementById('score4').value
-        scores.push(scoreVar)
+    if(isPopulated('name4')) {
+        var player4 = []
+        player4[0] = document.getElementById('name4').value
+        player4[1] = document.getElementById('score4').value
+        player4[2] = document.getElementById('position4').value
         players = 4
     }
-    first = 0
-    for (var i = 1; i < scores.length; i++) {
-        if (scores[i] > scores[first]) {
-            first = i
-        }
-    }
+    first = Math.max(player1[1],player2[1],player3[1],player4[1])
 
-    callAddScores(players, first)
+    var players = []
+    for (var i = 1; i <= 4; i++) {
+        var player = "player"+i
+        if(this[player])
+        players.push(this[player])
+    } 
+
+    addScores(players, first)
 
     switchClear()
 }
@@ -42,52 +55,15 @@ function switchClear() {
     switchScreen();
 }
 
-function callAddScores(players, first) {
-    one = false
-    two = false
-    three = false
-    four = false
-    switch(first) {
-        case 0:
-            one = true
-            break;
-        case 1:
-            two = true
-            break;
-        case 2:
-            three = true
-            break
-        case 3: 
-            four = true
-            break;
+function addScores(players, first) {
+    for (var i = 0; i < players.length; i++) {
+        if(first == i) {
+            addPlayerScore(players[i], true)
+        }
+        else{
+            addPlayerScore(players[i], false)
+        }
     }
-
-    switch(players) {
-        case 1:
-            addScores(1, one); 
-            break;
-        case 2:
-            addScores(1, one); 
-            addScores(2, two); 
-            break;
-        case 3:
-            addScores(1, one); 
-            addScores(2, two); 
-            addScores(3, three);
-            break;
-        case 4:
-            addScores(1, one); 
-            addScores(2, two); 
-            addScores(3, three);
-            addScores(4, four); 
-            break;
-    }
-}
-
-function addScores(playerNum, first) {
-    nameVar = document.getElementById('user'+playerNum).value
-    scoreVar = document.getElementById('score'+playerNum).value
-    addPlayerScore(nameVar, scoreVar, first);
 }
 
 function switchScreen() {
@@ -103,7 +79,7 @@ function switchScreen() {
     }
 }
 
-function addPlayerScore(nameVar, scoreVar, firstVar) {
+function addPlayerScore(player, first) {
     var table = document.getElementById('scoreTable');
 
     if(names.includes(nameVar)) {
@@ -143,82 +119,6 @@ function isPopulated(input) {
     return false
 }
 
-function htmlToCSV(html, filename) {
-	var data = [];
-	var rows = document.querySelectorAll("table tr");
-			
-	for (var i = 0; i < rows.length; i++) {
-		var row = [], cols = rows[i].querySelectorAll("td, th");
-				
-		for (var j = 0; j < cols.length; j++) {
-		        row.push(cols[j].innerText);
-        }
-		        
-		data.push(row.join(",")); 		
-	}
-
-	downloadCSVFile(data.join("\n"), filename);
-}
-
-function downloadCSVFile(csv, filename) {
-	var csv_file, download_link;
-
-	csv_file = new Blob([csv], {type: "text/csv"});
-
-	download_link = document.createElement("a");
-
-	download_link.download = filename;
-
-	download_link.href = window.URL.createObjectURL(csv_file);
-
-	download_link.style.display = "none";
-
-	document.body.appendChild(download_link);
-
-	download_link.click();
-}
-
-function saveScores() {
-    var html = document.querySelector("table").outerHTML;
-    htmlToCSV(html, "scores.csv");
-}
-
-function clearEntryBoxes(players) {
-    document.getElementById('score1').value = ""
-    document.getElementById('score2').value = ""
-    document.getElementById('score3').value = ""
-    document.getElementById('score4').value = ""
-
-    if(players == true) {
-        document.getElementById('user1').value = ""
-        document.getElementById('user2').value = ""
-        document.getElementById('user3').value = ""
-        document.getElementById('user4').value = ""
-    }
-}
-
-async function loadScores() {
-    try {
-		let scores_data = await downloadFile();
-	}
-	catch(e) {
-		alert(e.message);
-	}
-}
-
-async function downloadFile() {
-	let response = await fetch("/scores.csv");
-		
-	if(response.status != 200) {
-		throw new Error("Server Error");
-	}
-		
-	// read response stream as text
-	let scores_data = await response.text();
-
-	loadScoresFromData(scores_data.split("\n"));
-}
-
 function loadScoresFromData(scores) {
     var table = document.createElement("table");
     for (var i = 0; i < scores.length; i++) {
@@ -227,4 +127,19 @@ function loadScoresFromData(scores) {
             addPlayerScore(cells[0], cells[1], cells[2])
         }
     }
+}
+
+function loadScores() {
+    makeScoresRequest()
+}
+
+function makeScoresRequest() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("txtHint").innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET", "database.php?func=" + "load", true);
+    xmlhttp.send();    
 }
