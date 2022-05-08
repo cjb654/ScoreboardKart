@@ -9,12 +9,12 @@ $func = $_REQUEST["func"];
 
 switch($func) {
   case "load" : 
-    return loadTable()
+    loadTable();
 }
 
 function loadTable() {
   $query = "SELECT player, score, races, mean_score, mean_position FROM scores";
-  return sendQuery($query)
+  return sendQuery($query);
 }
 
 function addRace(player, score, position){
@@ -67,26 +67,30 @@ function sendQuery(query) {
 }
 
 function loadScoresFromData(scores) {
-  var table = document.getElementById("scoreboard").appendChild(
-    document.createElement("table"));
-  table.id = "scoreTable"
+  echo '<table id="scoreTable"><thead><tr>';
 
-  for (var i = 0; i < scores.length; i++) {
-      var row = table.insertRow()
+  //$header
 
-      var name = row.insertCell(0);
-      var score = row.insertCell(1);
-      var races = row.insertCell(2);
-      var mean_score = row.insertCell(3);
-      var mean_position = row.insertCell(4);
-
-      name.innerHTML = scores[i][0]
-      score.innerHTML = scores[i][1]
-      races.innerHTML = scores[i][2]
-      mean_score.innerHTML = scores[i][3]
-      mean_position.innerHTML = scores[i][4]
-      score.innerHTML = scoreVar
+  foreach($scores[0] as $header) {
+      echo '<th>'.$header.'</th>';
   }
+
+  echo '<th>'.'name'.'</th>';
+  echo '<th>'.'score'.'</th>';
+  echo '<th>'.'races'.'</th>';
+  echo '<th>'.'mean_score'.'</th>';
+  echo '<th>'.'mean_position'.'</th>';
+  
+  echo '</tr></thead><tbody>';
+
+  foreach($scores as $row) {
+      echo '<tr>';
+      for ($i = 0; $i < $scores.length; $i++) {
+        echo '<td>'.$row[$i].'</td>';
+      }
+      echo '</tr>';
+  }
+  echo '</tbody></table>';
 }
 
 ?>
