@@ -12,6 +12,8 @@
     
     $sql = "SELECT player, score, races, mean_score, mean_position FROM scores";
     $result = $conn->query($sql);
+
+    echo '<div class="shown" id="scoreboard">';
     
     if ($result->num_rows > 0) {
         echo '<table id="scoreTable"><tr>';    
@@ -27,6 +29,7 @@
             . $row["races"]. "</td><td>" . $row["mean_score"] . "</td><td>" . $row["mean_position"] . "</td></tr>";
         }
         echo '</table>';
+        echo '</div>';
     } 
     else {
         echo "0 results";

@@ -49,5 +49,8 @@
             }
         }
         $conn->close();
+
+        header('Location: ../scoreboardKart.html');
+        exit;
     }
 ?>

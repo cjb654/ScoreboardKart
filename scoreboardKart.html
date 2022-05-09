@@ -23,11 +23,7 @@
         <div>
             <?php include 'php/loadTable.php';?>
         </div>
-
-        <div class="shown" id="scoreboard">
-        </div>
         
-
         <div class="hidden" id="addRace">
             <form action="php/addRace.php" method="POST">            
                 <table id="addRaceTable">
@@ -68,8 +64,9 @@
                     </tr>
                 </table>
 
-                <button id="backButtonAdd" onclick="switchClear();">Back</button>
             </form>
+
+            <button id="backButtonAdd" onclick="switchClear();">Back</button>
         </div> 
     </body>
 </html>
