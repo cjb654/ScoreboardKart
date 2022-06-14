@@ -33,8 +33,9 @@
     $handle = fopen('scores.csv','r');
 
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        foreach ($data as $player)
         $num = count($data);
-        add($data)
+        add($data);
     }
     fclose($handle);
 ?>
