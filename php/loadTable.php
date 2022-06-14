@@ -17,11 +17,11 @@
     
     if ($result->num_rows > 0) {
         echo '<table id="scoreTable"><tr>';    
-        echo '<th>'.'name'.'</th>';
-        echo '<th>'.'score'.'</th>';
-        echo '<th>'.'races'.'</th>';
-        echo '<th>'.'mean_score'.'</th>';
-        echo '<th>'.'mean_position'.'</th>';
+        echo '<th>'.'Player'.'</th>';
+        echo '<th>'.'Total Score'.'</th>';
+        echo '<th>'.'Races Played'.'</th>';
+        echo '<th>'.'Avearge Score'.'</th>';
+        echo '<th>'.'Average Position'.'</th>';
         echo '</tr>';
 
         while($row = $result->fetch_assoc()) {

@@ -4,29 +4,6 @@ $username = "root";
 $password = "ScoreboardKart123";
 $dbname = "scoreboard";
 
-// get the func parameter from URL
-$func = $_REQUEST["func"];
-
-switch($func) {
-  case "load" : 
-    loadTable();
-}
-
-function loadTable() {
-  $query = "SELECT player, score, races, mean_score, mean_position FROM scores";
-  return sendQuery($query);
-}
-
-function addRace(player, score, position){
-  $query = "UPDATE scores SET score = score + $score, total_pos = total_pos + $position, races = races + 1  WHERE player == $player"
-  sendQuery($query)
-}
-
-function addRaceNewPlayer(player, score, position) {
-  $query = "INSERT INTO scores (player, score, total_pos, races) VALUES ($player, $score, $position, 1)"
-  sendQuery($query)
-}
-
 function updateTotals() {
   $mean_score_query = "UPDATE scores SET mean_score = score / races"
   $mean_position_query = "UPDATE scores SET mean_position = total_pos / races"
