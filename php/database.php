@@ -1,17 +1,17 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "ScoreboardKart123";
-$dbname = "scoreboard";
-
+updateTotals();
 function updateTotals() {
-  $mean_score_query = "UPDATE scores SET mean_score = score / races"
-  $mean_position_query = "UPDATE scores SET mean_position = total_pos / races"
-  sendQuery($mean_score_query)
-  sendQuery($mean_position_query)
+  $mean_score_query = "ALTER TABLE scores DROP COLUMN mean_score; UPDATE scores SET mean_score = score / races";
+  $mean_position_query = "ALTER TABLE scores DROP COLUMN mean_position; UPDATE scores SET mean_position = total_pos / races";
+  sendQuery($mean_score_query);
+  sendQuery($mean_position_query);
 }
 
-function sendQuery(query) {
+function sendQuery($query) {
+  $servername = "localhost";
+  $username = "root";
+  $password = "ScoreboardKart123";
+  $dbname = "scoreboard";
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname);
   // Check connection
@@ -22,18 +22,18 @@ function sendQuery(query) {
   $sql = $query;
   $result = $conn->query($sql);
 
-  $scores = []
+  $scores = [];
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      player = [
+      $player = [
         $row["player"],
         $row["score"],
         $row["races"],
         $row["mean_score"],
         $row["mean_position"],
-      ]
-      array_push($scores, player);
+      ];
+      array_push($scores, $player);
     }
   } else {
     echo "0 results";
@@ -43,7 +43,7 @@ function sendQuery(query) {
   loadScoresFromData($scores);
 }
 
-function loadScoresFromData(scores) {
+function loadScoresFromData($scores) {
   echo '<table id="scoreTable"><tr>';
 
   //$header
@@ -58,7 +58,7 @@ function loadScoresFromData(scores) {
 
   foreach($scores as $row) {
       echo '<tr>';
-      for ($i = 0; $i < $scores.length; $i++) {
+      for ($i = 0; $i < count($scores); $i++) {
         echo '<td>'.$row[$i].'</td>';
       }
       echo '</tr>';

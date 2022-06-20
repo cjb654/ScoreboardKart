@@ -1,9 +1,9 @@
 <?php
     if (isset($_POST['submit'])) {
-        if (isset($_POST['player1'])) { $playersNum = 1; }
-        if (isset($_POST['player2'])) { $playersNum = 2; }
-        if (isset($_POST['player3'])) { $playersNum = 3; }
-        if (isset($_POST['player4'])) { $playersNum = 4; }
+        $playersNum = 4;
+        if (empty($_POST['player4'])) { $playersNum = 3; }
+        if (empty($_POST['player3'])) { $playersNum = 2; }
+        if (empty($_POST['player2'])) { $playersNum = 1; }
         echo $playersNum;
         $scores = [$_POST['score1'],$_POST['score2'],$_POST['score3'],$_POST['score4']];
         $first = array_keys($scores, max($scores));
@@ -11,14 +11,32 @@
         $playerVar = 'player';
         $scoreVar = 'score';
         $positionVar = 'position';
+        $raceLength = $_POST['length'];
 
         for ( $i = 1; $i <= $playersNum; $i++) {
             $player = $_POST[$playerVar . $i];
             $score = $_POST[$scoreVar . $i];
             $position = $_POST[$positionVar . $i];
-            $firstPos = false;
-            if ( $i == $first) { $firstPos = true; }
-            array_push($players, [$player, $score, $position, $firstPos]);
+            switch($raceLength){
+                case 4:
+                    $score = $score * 1.5;
+                    break;
+                case 8:
+                    $score = $score * 0.75;
+                    break;
+                case 12:
+                    $score = $score * 0.5;
+                    break;
+                case 24:
+                    $score = $score * 0.25;
+                    break; 
+                case 48:
+                    $score = $score * 0.125;
+                    break;  
+                default:
+                break;
+            }
+            array_push($players, [$player, $score, $position,]);
         }
         $servername = "localhost";
         $username = "root";
@@ -39,10 +57,8 @@
                 $playerName = $players[$row][0];
                 $playerScore = $players[$row][1];
                 $playerPosition = $players[$row][2];
-                $Insert = "INSERT INTO `scores` (`player`, `score`, `races`, `total_pos`) 
-                VALUES ('$playerName', $playerScore, 1, $playerPosition) 
-                ON DUPLICATE KEY UPDATE `player` =  '$playerName', `score` = `score` +  $playerScore,
-                `races` =`races` +  1, `total_pos` = `total_pos` +  $playerPosition";
+                $Insert = "INSERT INTO `races` (`player`, `score`, `position`) 
+                VALUES ($playerName, $playerScore $playerPosition)";
                 echo $Insert;
                 $result = $conn->query($Insert);
                 echo $result;
