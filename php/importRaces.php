@@ -17,10 +17,28 @@
             $playerName = $player[0];
             $playerScore = $player[1];
             $playerPosition = $player[2];
-            $Insert = "INSERT INTO `scores` (`player`, `score`, `races`, `total_pos`) 
-            VALUES ('$playerName', $playerScore, 1, $playerPosition) 
-            ON DUPLICATE KEY UPDATE `player` =  '$playerName', `score` = `score` +  $playerScore,
-            `races` =`races` +  1, `total_pos` = `total_pos` +  $playerPosition";
+            $length = $player[3];
+            switch($length){
+                case 4:
+                    $playerScore = $playerScore * 1.5;
+                    break;
+                case 8:
+                    $playerScore = $playerScore * 0.75;
+                    break;
+                case 12:
+                    $playerScore = $playerScore * 0.5;
+                    break;
+                case 24:
+                    $playerScore = $playerScore * 0.25;
+                    break; 
+                case 48:
+                    $playerScore = $playerScore * 0.125;
+                    break;  
+                default:
+                break;
+            }
+            $Insert = "INSERT INTO `races` (`player`, `score`, `position`) 
+            VALUES ('$playerName', $playerScore, $playerPosition)";
             echo $Insert;
             $result = $conn->query($Insert);
             echo $result;    

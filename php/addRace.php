@@ -58,7 +58,7 @@
                 $playerScore = $players[$row][1];
                 $playerPosition = $players[$row][2];
                 $Insert = "INSERT INTO `races` (`player`, `score`, `position`) 
-                VALUES ($playerName, $playerScore $playerPosition)";
+                VALUES ('$playerName', $playerScore, $playerPosition)";
                 echo $Insert;
                 $result = $conn->query($Insert);
                 echo $result;

@@ -33,12 +33,15 @@
                         $player[1] += $total_score;
                         $player[1] = $player[1] / $player[3];
                         $sortedPlayer = $player;
-                        break 3;
+                        goto place;
                     }
                 }
+                place:
                 array_push($sortedPlayers, $player);
             }
         }
+
+        usort($sortedPlayers, "cmp");
 
         echo '<table id="scoreTable"><tr>';    
         echo '<th>'.'Player'.'</th>';
@@ -58,4 +61,8 @@
         echo "0 results";
     }
     $conn->close();
+
+    function cmp($a, $b) {
+        return strcmp($a->name, $b->name);
+    }
 ?>
